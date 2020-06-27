@@ -1,0 +1,112 @@
+<div class="row">
+	<div class="col-xl-6">
+		<div class="row row-full-height">
+
+
+
+		</div>
+	</div>
+
+</div>
+
+
+<kt-portlet>
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="col-12" style="text-align: center;text-align: center;
+		padding: 20px;
+		color: white;
+		border-radius: 4px 4px 0 0;
+		background-color: black;">احصائيات محددة</div>
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-4 spec-stat">
+				<!-- {{picker | json}} -->
+				<p class="col-12" style="display: flex;justify-content: center;align-items: center;padding: 0;margin: 0;flex-wrap: wrap;">
+					<mat-form-field style="margin-top: 20px;width: 60%;"  (click)="startPicker.open()">
+						<input matInput [matDatepicker]="startPicker" placeholder=" حدد تاريخ البدأ" disabled style="height: 25px;"  [formControl]="startDate">
+						<mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
+						<mat-datepicker #startPicker disabled="false"  (closed)="showPicker()"></mat-datepicker>
+					</mat-form-field>
+
+					<mat-form-field style="margin-top: 20px;width: 60%;"  (click)="endPicker.open()">
+						<input matInput [matDatepicker]="endPicker" placeholder=" حدد تاريخ الانتهاء" disabled style="height: 25px;"  [formControl]="endDate">
+						<mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
+						<mat-datepicker #endPicker disabled="false"  (closed)="showPicker()"></mat-datepicker>
+					</mat-form-field>
+				  </p>
+				<kt-widget1 [data]="data"></kt-widget1>
+			</div>
+			<div class="col-xl-8 d-flex flex-wrap">
+				<div class="col-12" style="display: flex;justify-content: center;align-items: center;background-color: gainsboro;">
+					<mat-radio-group [(ngModel)]="selectedTimeInterval" (change)="updateChart()">
+						<mat-radio-button [value]="interval" *ngFor="let interval of timeIntervals">{{interval}}</mat-radio-button>
+					</mat-radio-group>
+				</div>
+				<div class="col-xl-12">
+					<kt-daily-invoices-sell [title]="'عدد الفواتير '" [desc]="'اضغط على العامود لمعرفة التفاصيل'"></kt-daily-invoices-sell>
+				</div>
+				<!-- <div class="col-xl-6">
+					<kt-daily-income [title]="'الارباح اليومية'" [desc]="'اضغط على العامود لمعرفة التفاصيل'"></kt-daily-income>
+				</div> -->
+			</div>
+
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+
+
+<div class="row general-stat" >
+	<div class="col-12" ><div  style="text-align: center;text-align: center;
+		padding: 20px;
+		color: white;
+		border-radius: 4px 4px 0 0;
+		background-color: black;">احصائيات عامة</div></div>
+
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'" style="border-radius: 0 0 4px 4px !important">
+			<kt-portlet-body class="text-center">
+				<h1>العملاء</h1>
+				<h5>
+					<span class="badge badge-light"> الكلي {{allCustomers | mask : 'separator' : ','}}</span>
+				</h5>
+				<h5>
+					<span class="badge badge-danger"> مديون  {{inDebtCustomers | mask : 'separator' : ','}}</span>
+					<span class="badge badge-dark">غير مديون  {{notDebitedCustomers | mask : 'separator' : ','}}</span>
+				</h5>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'" style="border-radius: 0 0 4px 4px !important">
+			<kt-portlet-body class="text-center">
+				<h1>المواد</h1>
+				<h5>
+					<span class="badge badge-light">الكلي {{allItems | mask : 'separator' : ','}}</span>
+				</h5>
+				<h5>
+					<span class="badge badge-danger">القليل او النافذ {{lowQuantity | mask : 'separator' : ','}}</span>
+					<span class="badge badge-dark">الكثير {{highQuantity | mask : 'separator' : ','}}</span>
+				</h5>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+	<div class="col-xl-4">
+		<kt-portlet [class]="'kt-portlet--height-fluid'" style="border-radius: 0 0 4px 4px !important">
+			<kt-portlet-body class="text-center">
+				<h1>الديون</h1>
+				<h5>
+					<span class="badge badge-danger"></span>
+				</h5>
+				<h5>
+					<span class="badge badge-danger" style="margin: 32px 0 0 0;">الديون الكلية  {{debt | mask : 'separator' : ','}}</span>
+				</h5>
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+
+
+</div>
+
+
+
+

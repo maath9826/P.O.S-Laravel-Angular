@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        	@font-face{
+                font-family: Tajawal-Regular;
+                src:url('./Tajawal-Regular.ttf') ;
+            }
+            @font-face{
+                font-family: Tajawal-Bold;
+                src:url('./Tajawal-Bold.ttf') ;
+            }
+                body , html   {
+                margin: 0;
+                padding: 0;
+                background-color: white;
+                font-family: Tajawal-Bold;
+                text-align: right;
+            }
+
+            h1 , h2 ,h3 ,h4 ,h5{
+                margin: 0;
+                padding: 0;
+                text-align: right;
+            }
+
+            .invoice-container{
+                text-align: center;
+                padding: 10px;
+                border-bottom: dotted 1px;
+            }
+    </style>
+    <title>فاتورة</title>
+</head>
+<body>
+
+    <div class="head">
+
+        <div class="invoice-container" >سوبر ماركت فروتي</div>
+        <div class="invoice-container" style="display: flex;flex-wrap: wrap;flex-direction: row-reverse;">
+            <div class="col-6" style="margin: 5px 0">: رقم الفاتورة</div>
+            <div class="col-6" style="margin: 5px 0">: اسم الزبون</div>
+            <div class="col-6" style="margin: 5px 0">: تاريخ الفاتورة</div>
+        </div>
+        <div class="invoice-container" style="display: flex;flex-direction: row-reverse;">
+            <div class="col-6" >الاسم</div>
+            <div class="col-2" >السعر</div>
+            <div class="col-2" >الكمية</div>
+            <div class="col-2" >اجمالي</div>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div class="invoice-container">
+
+        </div>
+    </div>
+
+    <div class="foot">
+        <div class="invoice-container" style="border-bottom: none;">
+            <div style="margin: 3px 0;">: الاجمالي</div>
+            <div style="margin: 3px 0;">: المدفوع</div>
+            <div style="margin: 3px 0;">: المتبقي</div>
+        </div>
+    </div>
+    
+</body>
+</html>
+<!-- style="margin-right: 14.5vw;" -->

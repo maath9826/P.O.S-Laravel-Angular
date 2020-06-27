@@ -1,0 +1,91 @@
+<div id="filterbar" class="row">
+	<div class="col-6">
+	  <h1 class="float-left">عرض الفواتير</h1>
+
+	</div>
+	<!-- <div class="col-6">
+	  <button type="button" class="btn btn-primary float-right" (click)="openAddModeal()">اضافة فاتورة جديدة</button>
+	</div> -->
+	<div class="col-12">
+		<input type="text" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ادخل رقم الفاتورة او الزبون'"  style="margin: 10px 0;max-width: 200px;padding: 10px;text-align: right;display: inline-block;" placeholder="ادخل رقم الفاتورة او الزبون" [formControl]="search_invoice_input" (keyup)="onKeyUp()">
+		<div class="col-5" style="display: inline-block;">
+			<mat-radio-group [(ngModel)]="selectedRadioOption" (change)="updateTable()">
+				<mat-radio-button [value]="interval" *ngFor="let interval of radioOptions">{{interval}}</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  </div>
+  <div class="row">
+
+	  <div class="col-12">
+
+		  <div class="sticky-container">
+			  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100" >
+
+
+				  <ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> الرقم </th>
+					<td mat-cell *matCellDef="let element"> {{element.id}} </td>
+					<td mat-footer-cell *matFooterCellDef>  </td>
+
+				  </ng-container>
+
+
+				  <ng-container matColumnDef="customerName">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> اسم الزبون </th>
+					<td mat-cell *matCellDef="let element"> {{checkingCustomer(element)}} </td>
+					<td mat-footer-cell *matFooterCellDef>  </td>
+
+				  </ng-container>
+
+
+				  <ng-container matColumnDef="total_amount">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> المبلغ الكلي </th>
+					<td mat-cell *matCellDef="let element"> {{element.total_amount | mask : 'separator' : ','}} </td>
+					<td mat-footer-cell *matFooterCellDef>  </td>
+
+				  </ng-container>
+
+				  <ng-container matColumnDef="payed_amount">
+					  <th mat-header-cell *matHeaderCellDef mat-sort-header> المبلغ المدفوع </th>
+					  <td mat-cell *matCellDef="let element"> {{element.payed_amount | mask : 'separator' : ','}} </td>
+					  <td mat-footer-cell *matFooterCellDef>  </td>
+
+				  </ng-container>
+
+				  <ng-container matColumnDef="remaining_amount">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> المبلغ المتبقي </th>
+					<td mat-cell *matCellDef="let element">
+					  <span *ngIf="element.remaining_amount == 0">
+						  <span class="badge badge-success">0</span>
+					  </span>
+					  <span *ngIf="element.remaining_amount != 0">
+						<span class="badge badge-danger">{{element.remaining_amount | mask : 'separator' : ','}}</span>
+					  </span>
+					</td>
+					<td mat-footer-cell *matFooterCellDef>  </td>
+
+				</ng-container>
+
+				<!-- <ng-container matColumnDef="edit">
+				  <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+				  <td mat-cell *matCellDef="let element"> <button class="edit" type="button" (click)="openEditModeal(element)">
+					  <i class="fas fa-edit"></i>
+				  </button> </td>
+				  <td mat-footer-cell *matFooterCellDef>  </td>
+
+			  </ng-container> -->
+
+				  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+				  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+				  <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+
+				</table>
+
+		  </div>
+
+			<!-- <mat-paginator [length]="dataSource.maxCount$ | async" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" ></mat-paginator> -->
+			<mat-paginator class="mat-elevation-z8 w-100" [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+
+	  </div>
+  </div>

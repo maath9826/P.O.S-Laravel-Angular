@@ -1,0 +1,40 @@
+:host {
+	::ng-deep {
+		ngb-tabset > .nav-tabs {
+			display: none;
+		}
+	}
+}
+.title{
+font-size: 21px;
+    color: #000000;
+	font-weight: bold;
+	line-height: 65px;;
+}
+.rotate{
+	background: #8c8c8c;
+    display: inline-block;
+    height: 25px;
+    transform: rotate(45deg);
+    width: 25px;
+    border-radius: 5px;
+}
+
+.general-stat /deep/ .kt-portlet{
+	border-radius: 0 0 4px 4px !important;
+}
+
+.general-stat /deep/ .badge-danger{
+	margin-left: 10px;
+}
+
+.spec-stat /deep/ .kt-widget1 {
+	padding: 25px;
+	padding-top: 10px !important;
+}
+.spec-stat /deep/ .mat-form-field-underline {
+    background-color: rgba(99, 96, 96, 0.42) !important;
+}
+.spec-stat{
+	background-color: ghostwhite;
+}

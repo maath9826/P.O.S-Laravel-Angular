@@ -1,0 +1,28 @@
+:host {
+	::ng-deep {
+		// override default version style
+		.kt-header__topbar {
+			> :last-child:not([role="tooltip"]) {
+				.kt-header__topbar-item {
+					margin-right: 0 !important;
+				}
+			}
+			.kt-header__topbar-item {
+				margin-right: 0.36rem !important;
+			}
+		}
+	}
+}
+.link{
+	color: #000000;
+    font-size: 24px;
+    // margin: 15px 4px 0 4px;
+    font-weight: bold;
+}
+ul{
+	list-style: none;
+    display: -webkit-inline-box;
+}
+li{
+	margin-right: 10px;
+}

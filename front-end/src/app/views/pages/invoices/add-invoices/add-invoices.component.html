@@ -1,0 +1,80 @@
+
+<div>
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-caption">
+                <div class="kt-portlet__head-title">
+                    <span class="kt-portlet__head-icon kt-hide">
+                        <i class="la la-gear"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-text" style="font-family: 'Baloo Bhaijaan', cursive;">
+                       اضافة فاتورة
+                    </h3>
+                </div>
+            </div>
+        </div>
+		<!--begin::Form-->
+
+		<div class="kt-portlet__body" style="padding-bottom: 0;">
+			<label>اختر الزبون (غير مطلوب)</label>
+			<ng-select
+					bindLabel="name"
+					placeholder="اختر الزبون"
+					multiple="true"
+					maxSelectedItems="1"
+					[(ngModel)]="selectedCustomers"
+					(add)="onAddcustomer($event)">
+					<ng-option [value]="customer" [disabled]="customer.disabled" *ngFor="let customer of customers">
+										{{customer.name}}
+					</ng-option>
+			</ng-select>
+		</div>
+        <form class="kt-form" [formGroup]="_form">
+            <div class="kt-portlet__body" style="padding-top: 0;">
+                <div class="kt-form__section kt-form__section--first">
+
+
+							<input
+								type="hidden"
+								formControlName="customer_id">
+
+                    <div class="form-group kt-form__group">
+
+                            <label>المبلغ الكلي</label>
+							<input
+								type="text"
+								class="form-control"
+								placeholder="المبلغ الكلي"
+								formControlName="total_amount"
+								[class.is-valid]=" isValidInput('total_amount')"
+								[class.is-invalid]="isInValidInput('total_amount')">
+								<div *ngIf="hasError('total_amount', 'number')" class="invalid-feedback">يسمح بادخال الأرقام فقط</div>
+
+                    </div>
+                    <div class="form-group kt-form__group">
+
+							<label>المبلغ المدفوع</label>
+							<input
+								type="text"
+								class="form-control"
+								placeholder="المبلغ المدفوع"
+								formControlName="payed_amount"
+								[class.is-valid]=" isValidInput('payed_amount')"
+								[class.is-invalid]="isInValidInput('payed_amount')">
+								<div *ngIf="hasError('payed_amount', 'number')" class="invalid-feedback">يسمح بادخال الأرقام فقط</div>
+
+					</div>
+                </div>
+            </div>
+            <div class="kt-portlet__foot">
+                <div class="kt-form__actions kt-form__actions">
+                    <button mat-raised-button [disabled]="_form.invalid" color="primary" (click)="onSubmit()">Submit</button>&nbsp;
+                    <button mat-raised-button type="reset">Cancel</button>
+                </div>
+            </div>
+        </form>
+        <!--end::Form-->
+    </div>
+
+</div>
+

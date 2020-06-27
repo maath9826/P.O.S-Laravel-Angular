@@ -1,0 +1,95 @@
+table {
+	width: 100%;
+	box-shadow: none;
+  }
+
+  th.mat-header-cell{
+	  text-align: center !important;
+  }
+
+  td.mat-cell{
+	  text-align: center !important;
+  }
+
+  .example-table-container {
+	position: relative;
+    min-height: 310px;
+    max-height: 400px;
+    overflow: auto;
+  }
+
+  .delete{
+	padding: 0;
+    border: 0;
+    font-size: 18px;
+    background: transparent;
+  }
+
+  div {
+	padding: 0;
+  }
+  input[type=number]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+  }
+
+  .customerNameContainer{
+	display: flex;
+    margin-top: 15px;
+  }
+
+  mat-card{
+	  margin-bottom: 20px;
+  }
+
+  .col-flex{
+	display: flex;
+    flex-direction: column;
+  }
+
+  .hide_payed_amount{
+	  display: block !important;
+  }
+
+  .item-search-input {
+	.isi-options {
+		z-index: 110;
+		background: whitesmoke;
+		position: absolute;
+		display: none;
+		min-width: 300px;
+		.isio-item {
+			cursor: pointer;
+			padding: 5px;
+			border-bottom: 1px solid #8e8e8e38;
+			-webkit-user-select: none; /* Safari */
+			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* IE10+/Edge */
+			user-select: none; /* Standard */
+		}
+		&.show {
+			display: block;
+		}
+	}
+	.isi-input {
+		position: relative;
+		z-index: 110;
+		width: 100% !important;
+		padding: 5px !important;
+
+	}
+
+  }
+
+  .antiItemSearchWindow{
+	width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .hide{
+	  display: none !important;
+  }

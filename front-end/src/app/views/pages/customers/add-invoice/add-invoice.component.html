@@ -1,0 +1,55 @@
+
+
+<div>
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-caption">
+                <div class="kt-portlet__head-title">
+                    <span class="kt-portlet__head-icon kt-hide">
+                        <i class="la la-gear"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-text" style="font-family: 'Baloo Bhaijaan', cursive;">
+                       اضافة دين
+                    </h3>
+                </div>
+            </div>
+        </div>
+            <div class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+					<div style="margin: 10px 0;">
+						<span>
+							اسم الزبون : <span class="badge badge-primary">{{customerName}}</span>
+						</span>
+					</div>
+					<div style="margin: 10px 0;">
+						<span>
+							الدين الحالي : <span class="badge badge-danger">{{credit | mask : "separator"}}</span>
+						</span>
+					</div>
+                    <div class="form-group kt-form__group">
+							<label>الدين المضاف</label>
+							<input
+								thousandSeparator=","
+								mask="separator"
+								type="text"
+								class="form-control"
+								placeholder="ادخل الدين المضاف"
+								[formControl]= "pure_debt"
+								>
+								<div [class.small_payed_amount]="0 > pure_debt.value" style="display: none;color:red;font-size: 14px;">المبلغ المدفوع يجب ان يكون اكبر من الصفر</div>
+					</div>
+
+                </div>
+            </div>
+            <div class="kt-portlet__foot">
+                <div class="kt-form__actions kt-form__actions">
+                    <button mat-raised-button [disabled]="pure_debt.invalid" color="primary" (click)="onSubmit()" style="margin: 10px 30px 10px 0;">Submit</button>&nbsp;
+                    <button mat-raised-button (click)="dismiss()" style="margin: 10px 0 10px 30px;float: left;">Cancel</button>
+                </div>
+            </div>
+    </div>
+
+</div>
+
+
+

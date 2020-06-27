@@ -1,0 +1,42 @@
+
+<div>
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-caption">
+                <div class="kt-portlet__head-title">
+                    <span class="kt-portlet__head-icon kt-hide">
+                        <i class="la la-gear"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-text" style="font-family: 'Baloo Bhaijaan', cursive;">
+                       دفع دين
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+            <div class="kt-portlet__body">
+				<div class="kt-form__section kt-form__section--first" style="display: flex;justify-content: center;flex-wrap: wrap;">
+					<div class="col-12" style="text-align:center;background-color: darkgray;padding: 10px;margin-bottom: 20px;">
+						{{transformNumberToString()}}
+						<div>
+							<span class="btn btn-success" style="padding: 2px 8px !important;margin-top: 10px !important;">{{data.payed_debt | mask : "separator"}}</span>
+						</div>
+					</div>
+					<button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 20px;">تأكيد</button>&nbsp;
+                    <button mat-raised-button type="button" (click)="closeDialog()">الغاء</button>
+                </div>
+            </div>
+            <div class="kt-portlet__foot">
+                <div class="kt-form__actions kt-form__actions">
+
+                </div>
+            </div>
+
+
+    </div>
+
+</div>
+
+
+
+

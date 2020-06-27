@@ -1,0 +1,119 @@
+<div [ngClass]="isItemSearchOptionShow ? 'antiItemSearchWindow' : ''" (click)="onWindowClick()"></div>
+<div class="col-12" style="display: flex;">
+	<div class="col-8" style="display: flex;flex-wrap: wrap;">
+		<mat-card class="example-table-container col-12" (click)="onWindowClick()">
+			<div class="item-search-input">
+				<input class="isi-input" id="isio-item" [(ngModel)]="selectedItem" (keyup)="onItemsSearch($event)" autofocus/>
+				<div class="isi-options" [ngClass]="isItemSearchOptionShow ? 'show' : ''">
+					<div  class="isio-item" *ngFor="let item of items" (click)="onAdditem(item)">
+						{{item.name}}
+					</div>
+				</div>
+			</div>
+
+
+
+			<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+				<ng-container matColumnDef="edit">
+					<th mat-header-cell *matHeaderCellDef> التعديل </th>
+					<td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" type="button" title="تعديل" style="line-height: 30px;padding: 0 10px;" (click)="editItemOfTable(element)">تعديل</button></td>
+				</ng-container>
+
+				<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef> الاسم </th>
+				<td mat-cell *matCellDef="let element"> {{element.name}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="price">
+				<th mat-header-cell *matHeaderCellDef> السعر </th>
+				<td mat-cell *matCellDef="let element"> {{element.sell_price | mask : 'separator' : ','}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="count">
+				<th mat-header-cell *matHeaderCellDef> العدد </th>
+				<td mat-cell *matCellDef="let element">
+					<div class="d-flex" style="justify-content: center;align-items: center;">
+						<i class="fas fa-caret-down text-danger" style="font-size: 28px;cursor: pointer;" (click)="decreaseItemCount(element)"></i>
+						<span style="margin: 0 6px;">{{element.count}}</span>
+						<i class="fas fa-caret-up text-primary" style="font-size: 28px;cursor: pointer;" (click)="increaseItemCount(element)"></i>
+					</div>
+				</td>
+				</ng-container>
+
+				<ng-container matColumnDef="total_price">
+				<th mat-header-cell *matHeaderCellDef> السعر الكلي </th>
+
+				<td mat-cell *matCellDef="let element">{{element.count * element.sell_price | mask : 'separator' : ','}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="delete">
+				<th mat-header-cell *matHeaderCellDef> الحذف </th>
+				<td mat-cell *matCellDef="let element"><button mat-raised-button color="warn" type="button" title="حذف" style="line-height: 30px;padding: 0 10px;" (click)="removeItemFromTable(element)">حذف</button></td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+
+		</mat-card>
+		<div style="display: flex;flex-wrap: wrap;" class="col-12">
+			<mat-card style="flex: 0 0 49%;margin-left: auto;">
+				<ng-select
+							bindLabel="name"
+							placeholder="اختر الزبون"
+							multiple="true"
+							maxSelectedItems="1"
+							[(ngModel)]="selectedCustomers"
+							(add)="onAddcustomer($event)"
+							(onkeyup)="onCustomersSearch($event)">
+							<ng-option [value]="customer" [disabled]="customer.disabled" *ngFor="let customer of customers">
+												{{customer.name}}
+							</ng-option>
+				</ng-select>
+				<div class="customerNameContainer">
+					<h5 class="col-6" style="text-align:left;padding: 0;opacity: 0.6;font-size: 14px;display: flex;align-items: center;">اسم الزبون :</h5>
+					<h5 class="col-6" style="text-align:right;padding: 0;">{{customerName}}</h5>
+				</div>
+			</mat-card>
+
+			<mat-card style="flex: 0 0 49%;display: flex;justify-content: center;align-items: center;flex-wrap: wrap;">
+				<mat-card-subtitle class="col-12" style="text-align: center;background-color: lightgray;">
+					رقم الفاتورة
+				</mat-card-subtitle>
+				<form class="col-12" style="display: flex;justify-content: center;align-items: center;" (ngSubmit)="loadInvoice()" [formGroup]="_reciptForm">
+					<i class="fas fa-caret-right" style="cursor: pointer;font-size: 22px;" (click)="loadNextInvoice()"></i>
+					<input type="number" class="form-control"  style="margin: 0 10px;max-width: 100px;padding: 0;text-align: center;" formControlName="id">
+					<i class="fas fa-caret-left" style="cursor: pointer;font-size: 22px;" (click)="loadPrevInvoice()"></i>
+				</form>
+			</mat-card>
+		</div>
+	</div>
+	<div class="col-4 col-flex" style="text-align: center;padding-right: 10px;">
+		<mat-card>
+			<mat-card-subtitle style="background-color: lightgray;">تاريخ الفاتورة</mat-card-subtitle>
+			<h5>{{invoiceInfo.date | date}}</h5>
+		</mat-card>
+		<mat-card>
+			<mat-card-subtitle style="background-color: lightgray;">المبلغ الكلي</mat-card-subtitle>
+			<h5>{{invoiceInfo.totalPrice | mask : 'separator' : ','}}</h5>
+		</mat-card>
+		<mat-card>
+			<mat-card-subtitle style="background-color: lightgray;">المبلغ المدفوع</mat-card-subtitle>
+			<h5><input thousandSeparator="," mask="separator" class="form-control" style="text-align: center;" [placeholder]="payed_amount_storage | mask : 'separator' : ','" [(ngModel)]="invoiceInfo.payed_amount"></h5>
+			<div [class.hide_payed_amount]="invoiceInfo.payed_amount > invoiceInfo.totalPrice" style="display: none;color:red;font-size: 12px;">المبلغ المدفوع يجب ان يكون اصغر او يساوي المبلغ الكلي</div>
+		</mat-card>
+		<mat-card class="col-flex" style="flex: auto;">
+			<mat-card-subtitle style="background-color: lightgray;">خيارات</mat-card-subtitle>
+			<div class="col-flex" style="justify-content: center;flex: auto;">
+				<button mat-raised-button color="warn" class="d-block mx-auto" style="margin-bottom: 10px;" (click)="openNewInvoice()">فاتورة جديدة</button>
+				<button mat-raised-button [class.hide]="saveButtonDisabled()" color="primary" class="d-block mx-auto" style="margin-bottom: 10px;" (click)="submit()">حفظ الفاتورة</button>
+				<button mat-raised-button [class.hide]="saveButtonDisabled()" color="primary" class="d-block mx-auto" style="margin-bottom: 10px;" (click)="submitWithPrint()">حفظ الفاتورة مع طباعة</button>
+				<button mat-raised-button [class.hide]="saveChangesDisabled()" color="accent" class="d-block mx-auto" (click)="updateInvoice()" style="margin-bottom: 10px;">حفظ التغييرات</button>
+				<button mat-raised-button [class.hide]="saveChangesDisabled()" color="accent" class="d-block mx-auto" (click)="updateInvoiceWithPrint()">حفظ التغييرات مع طباعة</button>
+			</div>
+		</mat-card>
+	</div>
+</div>
+
+
+

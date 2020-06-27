@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        	@font-face{
+                font-family: Tajawal-Regular;
+                src:url('assets/Tajawal-Regular.ttf') ;
+            }
+            @font-face{
+                font-family: Tajawal-Bold;
+                src:url('assets/Tajawal-Bold.ttf') ;
+            }
+            body , html   {
+                margin: 0;
+                padding: 0;
+                background-color: white;
+                font-family: Tajawal-Bold;
+                text-align: right;
+                font-size: 0.8rem;
+            }
+
+            h1 , h2 ,h3 ,h4 ,h5{
+                margin: 0;
+                padding: 0;
+                text-align: right;
+            }
+
+            .invoice-container{
+                text-align: center;
+                padding: 10px;
+                border-bottom: dotted 1px;
+            }
+    </style>
+    <title>فاتورة</title>
+</head>
+<body>
+
+    <div class="head">
+
+        <div class="invoice-container" >سوبر ماركت فروتي</div>
+        <div class="invoice-container" style="display: flex;flex-wrap: wrap;flex-direction: row-reverse;">
+			<div style="margin: 5px 0;width: 50%;">
+                <span id="invoice_id">##invoice_id</span>
+                 : الــفاتورة
+			</div>
+            <div style="margin: 5px 0;width: 50%;">
+                <span id="customer_name">##customer_name</span>
+                 :  الزبون
+			</div>
+			<div style="margin: 5px 0;width: 100%;">
+                <span id="invoice_date">##invoice_date</span>
+                 : التاريخ
+			</div>
+        </div>
+        <div class="invoice-container" style="display: flex;flex-direction: row-reverse;">
+            <div style="width: 50%;" >الاسم</div>
+            <div style="width: 16.66%;">السعر</div>
+            <div style="width: 16.66%;">الكمية</div>
+            <div style="width: 16.66%;">اجمالي</div>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div class="invoice-container" id="items">
+            ##items
+        </div>
+    </div>
+
+    <div class="foot">
+        <div style="border-bottom: none; text-align: center;">
+			<div style="margin: 2px 0;">
+				<span id="total_amount">##total_amount</span> : الاجمالي
+			</div>
+			<div style="margin: 2px 0;">
+				<span id="payed_amount">##payed_amount</span> : المدفوع
+			</div>
+			<div style="margin: 2px 0;">
+				<span id="remaining_amount">##remaining_amount</span> : المتبقي
+			</div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+	var invoiceToPrint = JSON.parse(localStorage.getItem("invoiceToPrint"));
+	document.getElementById("invoice_id").innerText = invoiceToPrint.invoice.id;
+	document.getElementById("invoice_date").innerText = invoiceToPrint.invoice.created_at;
+	document.getElementById("total_amount").innerText = invoiceToPrint.invoice.total_amount;
+	document.getElementById("payed_amount").innerText = invoiceToPrint.invoice.payed_amount;
+	document.getElementById("remaining_amount").innerText = invoiceToPrint.invoice.remaining_amount;
+	if(invoiceToPrint.customerName){
+		document.getElementById("customer_name").innerText = invoiceToPrint.customerName;
+	}else{
+		document.getElementById("customer_name").innerText = "غير مسجل";
+	}
+
+	var itemCotainer = document.getElementById("items");
+	var itemsHtml = "";
+	for (var x = 0; x < invoiceToPrint.invoice_items.length; x++) {
+		itemsHtml += `
+			<div style="width:100%;display: flex;flex-direction:row-reverse;padding: 0;">
+					<div style="width: 50%"> ${invoiceToPrint.invoice_items[x].name} </div>
+					<div style="width: 16.6%"> ${invoiceToPrint.invoice_items[x].sell_price} </div>
+					<div style="width: 16.6%"> ${invoiceToPrint.invoice_items[x].count} </div>
+					<div style="width: 16.6%"> ${invoiceToPrint.invoice_items[x].sub_price} </div>
+			</div>
+		`;
+	}
+	itemCotainer.innerHTML = itemsHtml;
+</script>
+</html>
+<!-- style="margin-right: 14.5vw;" -->
